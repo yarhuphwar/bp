@@ -336,7 +336,7 @@ Deno.serve(async (request: Request) => {
   <div class="container">
     <h1>
       <a href="/" class="logo-link" aria-label="Homepage">
-        <img src="bp/Betting Paradise Logo PNG Black.png" alt="YHP Logo" class="logo" />
+        <img src="https://ag.yarhuphwar.com/Betting%20Paradise%20Logo.png" />
       </a>
       🚀 Hello User - YHP
     </h1>
@@ -515,7 +515,7 @@ Deno.serve(async (request: Request) => {
 <body>
     <div class="container">
         <div class="header-with-icon">
-            <img src="bp/Betting Paradise Logo PNG Black.png" alt="YHP Logo" class="logo" />
+            <img src="https://ag.yarhuphwar.com/Betting%20Paradise%20Logo.png" alt="YHP Logo" class="logo" />
             <h1>🔑 Your VLESS Configuration</h1>
             <div class="balloon" aria-label="balloon" role="img">🎈</div>
         </div>
