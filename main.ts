@@ -120,10 +120,27 @@ Deno.serve(async (request: Request) => {
       z-index: 10;
     }
     h1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: #b8860b;
       font-size: 2.6em;
       margin-bottom: 20px;
       letter-spacing: 1.2px;
+      gap: 12px; /* space between logo and text */
+    }
+    .logo-link {
+      display: inline-block;
+      height: 48px;
+      width: 48px;
+    }
+    .logo {
+      height: 100%;
+      width: auto;
+      display: block;
+      border-radius: 8px; /* optional rounded corners */
+      user-select: none;
+      pointer-events: auto;
     }
     p {
       font-size: 1.15em;
@@ -150,6 +167,7 @@ Deno.serve(async (request: Request) => {
         box-shadow 0.35s ease,
         transform 0.25s ease;
       user-select: none;
+      cursor: pointer;
     }
     .button:hover,
     .button:focus {
@@ -253,6 +271,11 @@ Deno.serve(async (request: Request) => {
       }
       h1 {
         font-size: 2em;
+        gap: 8px;
+      }
+      .logo-link {
+        height: 36px;
+        width: 36px;
       }
       p {
         font-size: 1em;
@@ -311,7 +334,12 @@ Deno.serve(async (request: Request) => {
   </svg>
 
   <div class="container">
-    <h1>🚀 Hello User - YHP</h1>
+    <h1>
+      <a href="/" class="logo-link" aria-label="Homepage">
+        <img src="bp/Betting Paradise Logo PNG Black.png" alt="YHP Logo" class="logo" />
+      </a>
+      🚀 Hello User - YHP
+    </h1>
     <p>Your VLESS over WebSocket proxy is up and running. Enjoy secure and efficient connections.</p>
     <div class="button-container">
       <a href="/${userID}" class="button">Get YHP VLESS Config</a>
@@ -323,6 +351,7 @@ Deno.serve(async (request: Request) => {
   </div>
 </body>
 </html>
+
 
         `;
 
@@ -397,6 +426,12 @@ Deno.serve(async (request: Request) => {
             gap: 10px;
             margin-bottom: 20px;
         }
+        .logo {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            user-select: none;
+        }
         .balloon {
             font-size: 2.5rem;
             animation: float 3s ease-in-out infinite;
@@ -425,7 +460,7 @@ Deno.serve(async (request: Request) => {
             padding-bottom: 5px;
         }
         .config-block {
-            background-color: #fff8dc; /* Cornsilk - soft golden background */
+            background-color: #fff8dc; /* Cornsilk */
             border-left: 5px solid #daa520; /* GoldenRod */
             padding: 20px;
             margin: 20px 0;
@@ -440,7 +475,7 @@ Deno.serve(async (request: Request) => {
             font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
             font-size: 0.95em;
             line-height: 1.4;
-            color: #6b4c00; /* Darker golden/brown */
+            color: #6b4c00; /* Dark golden brown */
         }
         .copy-button {
             position: absolute;
@@ -480,6 +515,7 @@ Deno.serve(async (request: Request) => {
 <body>
     <div class="container">
         <div class="header-with-icon">
+            <img src="bp/Betting Paradise Logo PNG Black.png" alt="YHP Logo" class="logo" />
             <h1>🔑 Your VLESS Configuration</h1>
             <div class="balloon" aria-label="balloon" role="img">🎈</div>
         </div>
