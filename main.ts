@@ -87,86 +87,243 @@ Deno.serve(async (request: Request) => {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V2ray by YHP</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f0f2f5;
-            color: #333;
-            text-align: center;
-            line-height: 1.6;
-        }
-        .container {
-            background-color: #ffffff;
-            padding: 40px 60px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 90%;
-        }
-        h1 {
-            color: #2c3e50;
-            font-size: 2.8em;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-        p {
-            font-size: 1.1em;
-            color: #555;
-            margin-bottom: 30px;
-        }
-        .button-container {
-            margin-top: 30px;
-        }
-        .button {
-            display: inline-block;
-            background-color: #007bff;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
-        }
-        .button:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-        }
-        .footer {
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #888;
-        }
-        .footer a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>V2ray by YHP</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f9f7f1;
+      color: #4a3c1a;
+      text-align: center;
+      line-height: 1.6;
+      padding: 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .container {
+      position: relative;
+      background-color: #fff8dc;
+      padding: 40px 50px;
+      border-radius: 15px;
+      box-shadow:
+        0 8px 20px rgba(218, 165, 32, 0.25),
+        inset 0 0 10px rgba(255, 223, 70, 0.3);
+      max-width: 600px;
+      width: 100%;
+      box-sizing: border-box;
+      z-index: 10;
+    }
+    h1 {
+      color: #b8860b;
+      font-size: 2.6em;
+      margin-bottom: 20px;
+      letter-spacing: 1.2px;
+    }
+    p {
+      font-size: 1.15em;
+      color: #6e5e2b;
+      margin-bottom: 30px;
+      font-weight: 500;
+    }
+    .button-container {
+      margin-top: 30px;
+    }
+    .button {
+      display: inline-block;
+      background: linear-gradient(45deg, #ffd700, #b8860b);
+      color: #3e2f00;
+      padding: 14px 30px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 1.15em;
+      font-weight: 600;
+      box-shadow:
+        0 5px 15px rgba(218, 165, 32, 0.5);
+      transition:
+        background 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.25s ease;
+      user-select: none;
+    }
+    .button:hover,
+    .button:focus {
+      background: linear-gradient(45deg, #fff176, #daa520);
+      box-shadow:
+        0 8px 20px rgba(255, 215, 0, 0.8),
+        0 0 12px 4px rgba(255, 223, 70, 0.6);
+      transform: scale(1.05);
+      outline: none;
+    }
+    .footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #7a6a32;
+    }
+    .footer a {
+      color: #b8860b;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* VPN icon balloon container */
+    .vpn-icon {
+      position: absolute;
+      bottom: -100px;
+      width: 48px;
+      height: 48px;
+      fill: #b8860b;
+      filter: drop-shadow(0 0 2px rgba(184, 134, 11, 0.6));
+      animation-name: floatUp;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      z-index: 5;
+      cursor: default;
+      transition: filter 0.3s ease;
+    }
+    .vpn-icon:hover {
+      filter: drop-shadow(0 0 6px #ffd700);
+      transform: scale(1.15);
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translateY(-100px) translateX(8px) rotate(7deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-200vh) translateX(-8px) rotate(-7deg);
+        opacity: 0;
+      }
+    }
+
+    /* Different positions, sizes, and animation delays */
+    .vpn-icon:nth-child(1) {
+      left: 10%;
+      animation-duration: 14s;
+      animation-delay: 0s;
+    }
+    .vpn-icon:nth-child(2) {
+      left: 30%;
+      width: 40px;
+      height: 40px;
+      animation-duration: 12s;
+      animation-delay: 3s;
+    }
+    .vpn-icon:nth-child(3) {
+      left: 50%;
+      animation-duration: 15s;
+      animation-delay: 5s;
+    }
+    .vpn-icon:nth-child(4) {
+      left: 70%;
+      width: 42px;
+      height: 42px;
+      animation-duration: 13s;
+      animation-delay: 2s;
+    }
+    .vpn-icon:nth-child(5) {
+      left: 85%;
+      width: 38px;
+      height: 38px;
+      animation-duration: 11s;
+      animation-delay: 4s;
+    }
+
+    /* Responsive for mobile */
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+      .container {
+        padding: 30px 20px;
+        border-radius: 12px;
+      }
+      h1 {
+        font-size: 2em;
+      }
+      p {
+        font-size: 1em;
+        margin-bottom: 25px;
+      }
+      .button {
+        padding: 12px 25px;
+        font-size: 1em;
+      }
+      .footer {
+        margin-top: 30px;
+        font-size: 0.85em;
+      }
+      .vpn-icon {
+        width: 32px !important;
+        height: 32px !important;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🚀 Hello User - YHP</h1>
-        <p>Your VLESS over WebSocket proxy is up and running. Enjoy secure and efficient connections.</p>
-        <div class="button-container">
-            <a href="/${userID}" class="button">Get YHP VLESS Config</a>
-        </div>
-        <div class="footer">
-            Powered by YHP. For support, contact <a href="https://t.me/hlainghtetaung" target="_blank">Yarhu Phwar</a>.
-        </div>
+  <!-- VPN server icons floating -->
+  <svg class="vpn-icon" style="bottom: -100px; left: 10%;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect x="12" y="20" width="40" height="24" rx="4" ry="4" stroke="#b8860b" stroke-width="3" fill="none"/>
+    <circle cx="32" cy="32" r="8" stroke="#b8860b" stroke-width="3" fill="none"/>
+    <path d="M32 24v-8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
+    <path d="M28 20h8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+
+  <svg class="vpn-icon" style="bottom: -100px; left: 30%;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect x="12" y="20" width="40" height="24" rx="4" ry="4" stroke="#b8860b" stroke-width="3" fill="none"/>
+    <circle cx="32" cy="32" r="8" stroke="#b8860b" stroke-width="3" fill="none"/>
+    <path d="M32 24v-8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
+    <path d="M28 20h8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+
+  <svg class="vpn-icon" style="bottom: -100px; left: 50%;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect x="12" y="20" width="40" height="24" rx="4" ry="4" stroke="#b8860b" stroke-width="3" fill="none"/>
+    <circle cx="32" cy="32" r="8" stroke="#b8860b" stroke-width="3" fill="none"/>
+    <path d="M32 24v-8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
+    <path d="M28 20h8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+
+  <svg class="vpn-icon" style="bottom: -100px; left: 70%;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect x="12" y="20" width="40" height="24" rx="4" ry="4" stroke="#b8860b" stroke-width="3" fill="none"/>
+    <circle cx="32" cy="32" r="8" stroke="#b8860b" stroke-width="3" fill="none"/>
+    <path d="M32 24v-8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
+    <path d="M28 20h8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+
+  <svg class="vpn-icon" style="bottom: -100px; left: 85%;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect x="12" y="20" width="40" height="24" rx="4" ry="4" stroke="#b8860b" stroke-width="3" fill="none"/>
+    <circle cx="32" cy="32" r="8" stroke="#b8860b" stroke-width="3" fill="none"/>
+    <path d="M32 24v-8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
+    <path d="M28 20h8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+
+  <div class="container">
+    <h1>🚀 Hello User - YHP</h1>
+    <p>Your VLESS over WebSocket proxy is up and running. Enjoy secure and efficient connections.</p>
+    <div class="button-container">
+      <a href="/${userID}" class="button">Get YHP VLESS Config</a>
     </div>
+    <div class="footer">
+      Powered by YHP. For support, contact
+      <a href="https://t.me/hlainghtetaung" target="_blank" rel="noopener noreferrer">Yarhu Phwar</a>.
+    </div>
+  </div>
 </body>
 </html>
+
         `;
 
         return new Response(htmlContent, {
@@ -206,8 +363,8 @@ Deno.serve(async (request: Request) => {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>YHP VLESS Configuration</title>
     <style>
         body {
@@ -229,67 +386,90 @@ Deno.serve(async (request: Request) => {
             padding: 40px 60px;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
+            max-width: 600px;
             width: 90%;
             margin-bottom: 20px;
         }
-        h1 {
-            color: #2c3e50;
-            font-size: 2.5em;
+        .header-with-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             margin-bottom: 20px;
+        }
+        .balloon {
+            font-size: 2.5rem;
+            animation: float 3s ease-in-out infinite;
+            user-select: none;
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        h1 {
+            color: #b8860b; /* DarkGoldenRod */
+            font-size: 2.5em;
+            margin-bottom: 0;
             letter-spacing: 1px;
         }
         h2 {
-            color: #34495e;
+            color: #b8860b; /* DarkGoldenRod */
             font-size: 1.8em;
             margin-top: 30px;
             margin-bottom: 15px;
-            border-bottom: 2px solid #eee;
+            border-bottom: 2px solid #f0e68c; /* Khaki */
             padding-bottom: 5px;
         }
         .config-block {
-            background-color: #e9ecef;
-            border-left: 5px solid #007bff;
+            background-color: #fff8dc; /* Cornsilk - soft golden background */
+            border-left: 5px solid #daa520; /* GoldenRod */
             padding: 20px;
             margin: 20px 0;
             border-radius: 8px;
             text-align: left;
             position: relative;
+            box-shadow: 0 0 8px rgba(218, 165, 32, 0.2);
         }
         .config-block pre {
-            white-space: pre-wrap; /* Allows text to wrap */
-            word-wrap: break-word; /* Breaks long words */
+            white-space: pre-wrap;
+            word-wrap: break-word;
             font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
             font-size: 0.95em;
             line-height: 1.4;
-            color: #36454F;
+            color: #6b4c00; /* Darker golden/brown */
         }
         .copy-button {
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: #28a745;
-            color: white;
+            background-color: #ffd700; /* Gold */
+            color: #333;
             border: none;
             padding: 8px 15px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 0.9em;
             transition: background-color 0.3s ease;
+            box-shadow: 0 3px 6px rgba(255, 215, 0, 0.5);
+            user-select: none;
         }
         .copy-button:hover {
-            background-color: #218838;
+            background-color: #ffc107; /* Amber */
         }
         .copy-button:active {
-            background-color: #1e7e34;
+            background-color: #ffb300; /* Darker Amber */
         }
         .footer {
             margin-top: 20px;
             font-size: 0.9em;
-            color: #888;
+            color: #aaa35c; /* Muted gold */
         }
         .footer a {
-            color: #007bff;
+            color: #daa520; /* GoldenRod */
             text-decoration: none;
         }
         .footer a:hover {
@@ -299,7 +479,10 @@ Deno.serve(async (request: Request) => {
 </head>
 <body>
     <div class="container">
-        <h1>🔑 Your VLESS Configuration</h1>
+        <div class="header-with-icon">
+            <h1>🔑 Your VLESS Configuration</h1>
+            <div class="balloon" aria-label="balloon" role="img">🎈</div>
+        </div>
         <p>Use the configurations below to set up your VLESS client. Click the "Copy" button to easily transfer the settings.</p>
 
         <h2>VLESS URI (for v2rayN, V2RayNG, etc.)</h2>
@@ -329,11 +512,13 @@ Deno.serve(async (request: Request) => {
                 });
         }
     </script>
+
     <div class="footer">
-        Powered by YHP. For support, contact <a href="https://t.me/hlainghtetaung" target="_blank">Yarhu Phwar</a>.
+        Powered by YHP. For support, contact <a href="https://t.me/hlainghtetaung" target="_blank" rel="noopener noreferrer">Yarhu Phwar</a>.
     </div>
 </body>
 </html>
+
 `;
         return new Response(htmlConfigContent, {
           status: 200,
