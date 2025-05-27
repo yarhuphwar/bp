@@ -91,255 +91,213 @@ Deno.serve(async (request: Request) => {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>V2ray by YHP</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #e0e6f0;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      margin: 0;
-      background-color: #f9f7f1;
-      color: #4a3c1a;
-      text-align: center;
-      line-height: 1.6;
-      padding: 20px;
+      padding: 16px;
       overflow-x: hidden;
+      text-align: center;
+      line-height: 1.5;
       position: relative;
     }
+
     .container {
-      position: relative;
-      background-color: #fff8dc;
-      padding: 40px 50px;
-      border-radius: 15px;
-      box-shadow:
-        0 8px 20px rgba(218, 165, 32, 0.25),
-        inset 0 0 10px rgba(255, 223, 70, 0.3);
-      max-width: 600px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.3);
+      max-width: 400px;
       width: 100%;
-      box-sizing: border-box;
+      padding: 40px 24px;
+      color: #f0f4ff;
+      position: relative;
       z-index: 10;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-sizing: border-box;
     }
+
     h1 {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #b8860b;
-      font-size: 2.6em;
+      font-weight: 700;
+      font-size: 2rem;
       margin-bottom: 20px;
-      letter-spacing: 1.2px;
-      gap: 12px; /* space between logo and text */
-    }
-    .logo-link {
-      display: inline-block;
-      height: 48px;
-      width: 48px;
-    }
-    .logo {
-      height: 100%;
-      width: auto;
-      display: block;
-      border-radius: 8px; /* optional rounded corners */
+      color: #82c7ff;
+      text-shadow: 0 0 8px rgba(130, 199, 255, 0.7);
       user-select: none;
-      pointer-events: auto;
     }
+
     p {
-      font-size: 1.15em;
-      color: #6e5e2b;
-      margin-bottom: 30px;
-      font-weight: 500;
-    }
-    .button-container {
-      margin-top: 30px;
-    }
-    .button {
-      display: inline-block;
-      background: linear-gradient(45deg, #ffd700, #b8860b);
-      color: #3e2f00;
-      padding: 14px 30px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 1.15em;
-      font-weight: 600;
-      box-shadow:
-        0 5px 15px rgba(218, 165, 32, 0.5);
-      transition:
-        background 0.35s ease,
-        box-shadow 0.35s ease,
-        transform 0.25s ease;
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 32px;
+      color: #d0d8f8;
+      text-shadow: 0 0 6px rgba(100, 150, 255, 0.3);
       user-select: none;
-      cursor: pointer;
     }
+
+    .button-container {
+      margin-top: 0;
+    }
+
+    .button {
+      background: rgba(130, 199, 255, 0.3);
+      border: 1.8px solid #82c7ff;
+      padding: 14px 36px;
+      border-radius: 14px;
+      color: #e0e6f0;
+      font-size: 1.15rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow:
+        0 4px 12px rgba(130, 199, 255, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition:
+        background 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.2s ease;
+      cursor: pointer;
+      user-select: none;
+      display: inline-block;
+      letter-spacing: 0.03em;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
     .button:hover,
     .button:focus {
-      background: linear-gradient(45deg, #fff176, #daa520);
+      background: rgba(130, 199, 255, 0.6);
       box-shadow:
-        0 8px 20px rgba(255, 215, 0, 0.8),
-        0 0 12px 4px rgba(255, 223, 70, 0.6);
+        0 8px 24px rgba(130, 199, 255, 0.8),
+        0 0 16px rgba(130, 199, 255, 0.8);
       transform: scale(1.05);
       outline: none;
-    }
-    .footer {
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #7a6a32;
-    }
-    .footer a {
-      color: #b8860b;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .footer a:hover {
-      text-decoration: underline;
+      color: #fff;
     }
 
-    /* VPN icon balloon container */
+    .footer {
+      margin-top: 36px;
+      font-size: 0.9rem;
+      color: #a0b4e0;
+      user-select: none;
+    }
+
+    .footer a {
+      color: #82c7ff;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer a:hover,
+    .footer a:focus {
+      color: #aaddff;
+      text-decoration: underline;
+      outline: none;
+    }
+
+    /* Floating subtle glowing dots */
     .vpn-icon {
       position: absolute;
-      bottom: -100px;
-      width: 48px;
-      height: 48px;
-      fill: #b8860b;
-      filter: drop-shadow(0 0 2px rgba(184, 134, 11, 0.6));
-      animation-name: floatUp;
+      bottom: 0;
+      border-radius: 50%;
+      background: rgba(130, 199, 255, 0.7);
+      box-shadow:
+        0 0 10px 3px rgba(130, 199, 255, 0.5),
+        inset 0 0 8px 1px rgba(255, 255, 255, 0.8);
+      animation-name: floatDotUp;
       animation-timing-function: ease-in-out;
       animation-iteration-count: infinite;
-      z-index: 5;
       cursor: default;
-      transition: filter 0.3s ease;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      opacity: 0.8;
     }
     .vpn-icon:hover {
-      filter: drop-shadow(0 0 6px #ffd700);
-      transform: scale(1.15);
+      box-shadow:
+        0 0 18px 6px rgba(130, 199, 255, 0.9),
+        inset 0 0 12px 3px rgba(255, 255, 255, 1);
+      transform: scale(1.4);
+      opacity: 1;
     }
 
-    @keyframes floatUp {
+    @keyframes floatDotUp {
       0% {
-        transform: translateY(0) translateX(0) rotate(0deg);
-        opacity: 0.8;
+        transform: translateY(0) translateX(0);
+        opacity: 0.6;
       }
       50% {
-        transform: translateY(-100px) translateX(8px) rotate(7deg);
+        transform: translateY(-80px) translateX(6px);
         opacity: 1;
       }
       100% {
-        transform: translateY(-200vh) translateX(-8px) rotate(-7deg);
+        transform: translateY(-160vh) translateX(-6px);
         opacity: 0;
       }
     }
 
-    /* Different positions, sizes, and animation delays */
+    /* Dot sizes, positions, animation delays */
     .vpn-icon:nth-child(1) {
-      left: 10%;
-      animation-duration: 14s;
+      left: 8%;
+      width: 14px;
+      height: 14px;
+      animation-duration: 12s;
       animation-delay: 0s;
     }
     .vpn-icon:nth-child(2) {
-      left: 30%;
-      width: 40px;
-      height: 40px;
-      animation-duration: 12s;
+      left: 28%;
+      width: 10px;
+      height: 10px;
+      animation-duration: 10s;
       animation-delay: 3s;
     }
     .vpn-icon:nth-child(3) {
-      left: 50%;
-      animation-duration: 15s;
-      animation-delay: 5s;
+      left: 48%;
+      width: 16px;
+      height: 16px;
+      animation-duration: 14s;
+      animation-delay: 2s;
     }
     .vpn-icon:nth-child(4) {
-      left: 70%;
-      width: 42px;
-      height: 42px;
-      animation-duration: 13s;
-      animation-delay: 2s;
+      left: 68%;
+      width: 12px;
+      height: 12px;
+      animation-duration: 11s;
+      animation-delay: 1s;
     }
     .vpn-icon:nth-child(5) {
       left: 85%;
-      width: 38px;
-      height: 38px;
-      animation-duration: 11s;
+      width: 8px;
+      height: 8px;
+      animation-duration: 9s;
       animation-delay: 4s;
     }
 
-    /* Responsive for mobile */
-    @media (max-width: 480px) {
-      body {
-        padding: 10px;
-      }
-      .container {
-        padding: 30px 20px;
-        border-radius: 12px;
-      }
-      h1 {
-        font-size: 2em;
-        gap: 8px;
-      }
-      .logo-link {
-        height: 36px;
-        width: 36px;
-      }
-      p {
-        font-size: 1em;
-        margin-bottom: 25px;
-      }
-      .button {
-        padding: 12px 25px;
-        font-size: 1em;
-      }
-      .footer {
-        margin-top: 30px;
-        font-size: 0.85em;
-      }
-      .vpn-icon {
-        width: 32px !important;
-        height: 32px !important;
-      }
-    }
   </style>
 </head>
 <body>
-  <!-- VPN server icons floating -->
-  <svg class="vpn-icon" style="bottom: -100px; left: 10%;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-    <rect x="12" y="20" width="40" height="24" rx="4" ry="4" stroke="#b8860b" stroke-width="3" fill="none"/>
-    <circle cx="32" cy="32" r="8" stroke="#b8860b" stroke-width="3" fill="none"/>
-    <path d="M32 24v-8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
-    <path d="M28 20h8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
-  </svg>
-
-  <svg class="vpn-icon" style="bottom: -100px; left: 30%;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-    <rect x="12" y="20" width="40" height="24" rx="4" ry="4" stroke="#b8860b" stroke-width="3" fill="none"/>
-    <circle cx="32" cy="32" r="8" stroke="#b8860b" stroke-width="3" fill="none"/>
-    <path d="M32 24v-8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
-    <path d="M28 20h8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
-  </svg>
-
-  <svg class="vpn-icon" style="bottom: -100px; left: 50%;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-    <rect x="12" y="20" width="40" height="24" rx="4" ry="4" stroke="#b8860b" stroke-width="3" fill="none"/>
-    <circle cx="32" cy="32" r="8" stroke="#b8860b" stroke-width="3" fill="none"/>
-    <path d="M32 24v-8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
-    <path d="M28 20h8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
-  </svg>
-
-  <svg class="vpn-icon" style="bottom: -100px; left: 70%;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-    <rect x="12" y="20" width="40" height="24" rx="4" ry="4" stroke="#b8860b" stroke-width="3" fill="none"/>
-    <circle cx="32" cy="32" r="8" stroke="#b8860b" stroke-width="3" fill="none"/>
-    <path d="M32 24v-8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
-    <path d="M28 20h8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
-  </svg>
-
-  <svg class="vpn-icon" style="bottom: -100px; left: 85%;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-    <rect x="12" y="20" width="40" height="24" rx="4" ry="4" stroke="#b8860b" stroke-width="3" fill="none"/>
-    <circle cx="32" cy="32" r="8" stroke="#b8860b" stroke-width="3" fill="none"/>
-    <path d="M32 24v-8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
-    <path d="M28 20h8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
-  </svg>
+  <!-- Floating subtle glowing dots -->
+  <div class="vpn-icon"></div>
+  <div class="vpn-icon"></div>
+  <div class="vpn-icon"></div>
+  <div class="vpn-icon"></div>
+  <div class="vpn-icon"></div>
 
   <div class="container">
-    <h1>
-      <a href="/" class="logo-link" aria-label="Homepage">
-        <img src="https://ag.yarhuphwar.com/Betting%20Paradise%20Logo.png" />
-      </a>
-      🚀 Hello User - YHP
-    </h1>
+    <h1>🚀 Hello User - YHP</h1>
     <p>Your VLESS over WebSocket proxy is up and running. Enjoy secure and efficient connections.</p>
     <div class="button-container">
       <a href="/${userID}" class="button">Get YHP VLESS Config</a>
@@ -351,6 +309,7 @@ Deno.serve(async (request: Request) => {
   </div>
 </body>
 </html>
+
 
 
         `;
@@ -392,149 +351,211 @@ Deno.serve(async (request: Request) => {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>YHP VLESS Configuration</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f0f2f5;
-            color: #333;
-            text-align: center;
-            line-height: 1.6;
-            padding: 20px;
-        }
-        .container {
-            background-color: #ffffff;
-            padding: 40px 60px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 90%;
-            margin-bottom: 20px;
-        }
-        .header-with-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .logo {
-            height: 50px;
-            width: auto;
-            object-fit: contain;
-            user-select: none;
-        }
-        .balloon {
-            font-size: 2.5rem;
-            animation: float 3s ease-in-out infinite;
-            user-select: none;
-        }
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-        h1 {
-            color: #b8860b; /* DarkGoldenRod */
-            font-size: 2.5em;
-            margin-bottom: 0;
-            letter-spacing: 1px;
-        }
-        h2 {
-            color: #b8860b; /* DarkGoldenRod */
-            font-size: 1.8em;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #f0e68c; /* Khaki */
-            padding-bottom: 5px;
-        }
-        .config-block {
-            background-color: #fff8dc; /* Cornsilk */
-            border-left: 5px solid #daa520; /* GoldenRod */
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-            text-align: left;
-            position: relative;
-            box-shadow: 0 0 8px rgba(218, 165, 32, 0.2);
-        }
-        .config-block pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
-            font-size: 0.95em;
-            line-height: 1.4;
-            color: #6b4c00; /* Dark golden brown */
-        }
-        .copy-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #ffd700; /* Gold */
-            color: #333;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 3px 6px rgba(255, 215, 0, 0.5);
-            user-select: none;
-        }
-        .copy-button:hover {
-            background-color: #ffc107; /* Amber */
-        }
-        .copy-button:active {
-            background-color: #ffb300; /* Darker Amber */
-        }
-        .footer {
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #aaa35c; /* Muted gold */
-        }
-        .footer a {
-            color: #daa520; /* GoldenRod */
-            text-decoration: none;
-        }
-        .footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>YHP VLESS Configuration</title>
+  <style>
+    /* Reset some default */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #eee;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .container {
+      background: rgba(32, 53, 69, 0.85);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      border-radius: 16px;
+      padding: 30px 40px;
+      max-width: 700px;
+      width: 100%;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .header-with-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      height: 48px;
+      width: auto;
+      filter: drop-shadow(0 0 3px #00ffcc);
+      user-select: none;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #00ffe7;
+      letter-spacing: 1.2px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .balloon {
+      font-size: 2.8rem;
+      animation: float 3s ease-in-out infinite;
+      user-select: none;
+      filter: drop-shadow(0 0 5px #00ffe7);
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #ccc;
+      max-width: 600px;
+      margin: 0 auto 30px;
+    }
+
+    h2 {
+      font-weight: 600;
+      font-size: 1.9rem;
+      color: #00d9b8;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #00d9b8;
+      padding-bottom: 6px;
+      text-align: left;
+    }
+
+    .config-block {
+      background: #04212c;
+      border-left: 6px solid #00d9b8;
+      padding: 20px 25px 20px 30px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 0 0 12px rgba(0, 217, 184, 0.4);
+      text-align: left;
+      font-size: 1rem;
+      color: #a0f0e8;
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      line-height: 1.4;
+    }
+
+    .copy-button {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background-color: #00d9b8;
+      color: #022c3a;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95em;
+      box-shadow: 0 3px 8px rgba(0, 217, 184, 0.7);
+      user-select: none;
+      transition: background-color 0.25s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .copy-button:hover {
+      background-color: #00f0cc;
+      color: #011d24;
+      box-shadow: 0 5px 12px rgba(0, 240, 204, 0.9);
+    }
+
+    .copy-button:active {
+      background-color: #00a886;
+      color: #022c3a;
+      box-shadow: none;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #55a0a0;
+      text-align: center;
+    }
+
+    .footer a {
+      color: #00d9b8;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+      .container {
+        padding: 20px 15px;
+      }
+      .copy-button {
+        padding: 7px 10px;
+        font-size: 0.85em;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header-with-icon">
-            <img src="https://ag.yarhuphwar.com/Betting%20Paradise%20Logo.png" alt="YHP Logo" class="logo" />
-            <h1>🔑 Your VLESS Configuration</h1>
-            <div class="balloon" aria-label="balloon" role="img">🎈</div>
-        </div>
-        <p>Use the configurations below to set up your VLESS client. Click the "Copy" button to easily transfer the settings.</p>
-
-        <h2>VLESS URI (for v2rayN, V2RayNG, etc.)</h2>
-        <div class="config-block">
-            <pre id="vless-uri-config">${vlessMain}</pre>
-            <button class="copy-button" onclick="copyToClipboard('vless-uri-config')">Copy</button>
-        </div>
-
-        <h2>Clash-Meta Configuration</h2>
-        <div class="config-block">
-            <pre id="clash-meta-config">${clashMetaConfig.trim()}</pre>
-            <button class="copy-button" onclick="copyToClipboard('clash-meta-config')">Copy</button>
-        </div>
+  <div class="container">
+    <div class="header-with-icon">
+      <img src="bp/Betting Paradise Logo PNG Black.png" alt="YHP Logo" class="logo" />
+      <h1>🔑 Your VLESS Configuration</h1>
+      <div class="balloon" aria-label="balloon" role="img">🎈</div>
     </div>
 
-    <script>
+    <p>Use the configurations below to set up your VLESS client. Click the "Copy" button to easily transfer the settings.</p>
+
+    <h2>VLESS URI (for v2rayN, V2RayNG, etc.)</h2>
+    <div class="config-block">
+      <pre id="vless-uri-config">${vlessMain}</pre>
+      <button class="copy-button" onclick="copyToClipboard('vless-uri-config')">Copy</button>
+    </div>
+
+    <h2>Clash-Meta Configuration</h2>
+    <div class="config-block">
+      <pre id="clash-meta-config">${clashMetaConfig.trim()}</pre>
+      <button class="copy-button" onclick="copyToClipboard('clash-meta-config')">Copy</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    Powered by YHP. For support, contact <a href="https://t.me/hlainghtetaung" target="_blank" rel="noopener noreferrer">Yarhu Phwar</a>.
+  </div>
+
+      <script>
         function copyToClipboard(elementId) {
             const element = document.getElementById(elementId);
             const textToCopy = element.innerText;
@@ -548,10 +569,6 @@ Deno.serve(async (request: Request) => {
                 });
         }
     </script>
-
-    <div class="footer">
-        Powered by YHP. For support, contact <a href="https://t.me/hlainghtetaung" target="_blank" rel="noopener noreferrer">Yarhu Phwar</a>.
-    </div>
 </body>
 </html>
 
